@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import EmailInput from "./src/components/Input";
 import { Coffee, Mail, Lock } from "lucide-react-native";
 import Input from "./src/components/Input";
@@ -11,9 +11,22 @@ export default function App() {
       <Input
         icon={Mail}
         placeholder="seuemail@example.com"
-        autoCapitalize={"none"}
+        autoCapitalizeOn="none"
+        autoCorrectOn={false}
+        keyboardType="email-address"
       />
-      <Input icon={Lock} secureTextEntry placeholder="Sua senha" />
+      <Input
+        icon={Lock}
+        secureTextEntry
+        placeholder="Sua senha"
+        autoCapitalizeOn="none"
+        autoCorrectOn={false}
+        keyboardType="default"
+      />
+
+      <TouchableOpacity>
+        <Text>Logar</Text>
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
