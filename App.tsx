@@ -10,6 +10,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <ToastNotification />
+
       <StatusBar style="auto" />
     </View>
   );
