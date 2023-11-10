@@ -13,7 +13,6 @@ export default function App() {
         toastMode="sucess"
         legenda="Verifique se os campos foram preenchidos corretamente"
       />
-
       <StatusBar style="auto" />
     </View>
   );
