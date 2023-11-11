@@ -9,13 +9,12 @@ interface ToastMode {
 
 const ToastNotification = ({ toastMode, legenda }: ToastMode) => {
   const sucess =
-    "bg-green-100 w-11/12 border-l-8 border-green-400 px-4 py-2 flex-row items-center h-20 rounded-lg";
+    "bg-green-100 w-11/12 border-l-8 border-green-400 absolute bottom-3/4 px-4 py-2 flex-row items-center h-20 rounded-lg";
 
   const error =
-    "bg-red-100 w-11/12 border-l-8 border-red-400 px-4 py-2 flex-row items-center h-20 rounded-lg";
+    "bg-red-100 w-11/12 border-l-8 border-red-400 absolute bottom-3/4 px-4 py-2 flex-row items-center h-20 rounded-lg";
 
   const selectedStyle = toastMode === "sucess" ? sucess : error;
-  const [icon, setIcon] = useState(selectedStyle);
 
   return (
     <View className={selectedStyle}>
