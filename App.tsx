@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Lock, Mail } from "lucide-react-native";
+import { Coffee, Lock, Mail } from "lucide-react-native";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Input from "./src/components/Input";
@@ -19,6 +19,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Button
+        icon={Coffee}
+        widthButton={"100%"}
+        colorIcon="#fff"
+        bgColorButton="#000"
         isLoading={loading}
         onPress={handleButtonPress}
         tituloButton="Fazer Login"

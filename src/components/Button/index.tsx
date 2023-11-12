@@ -1,21 +1,54 @@
 import React from "react";
-import { ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import { Icon } from "lucide-react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 interface IButton {
   tituloButton: String;
   onPress: () => void;
+  disable?: boolean;
   isLoading?: boolean;
+  icon?: Icon;
+  colorIcon?: string;
+  bgColorButton: string;
+  widthButton: String | number;
 }
 
-const Button = ({ tituloButton, onPress, isLoading = false }: IButton) => {
+const Button = ({
+  icon: IconComponent,
+  tituloButton,
+  onPress,
+  disable,
+  colorIcon,
+  isLoading = false,
+  bgColorButton,
+  widthButton,
+}: IButton) => {
   return (
     <TouchableOpacity
+      //@ts-ignore
+      style={
+        disable
+          ? { backgroundColor: "rgb(156 163 175)", width: widthButton }
+          : { backgroundColor: bgColorButton, width: widthButton }
+      }
+      disabled={isLoading || disable}
       onPress={onPress}
-      className="bg-blue-800 p-4 rounded-xl w-full flex items-center"
+      className={
+        disable
+          ? "bg-gray-400  p-4 rounded-xl flex-row items-center justify-center"
+          : `p-4 rounded-xl  flex-row items-center justify-center`
+      }
     >
       {isLoading ? (
-        <ActivityIndicator color="#fefefe" size={18} />
+        <ActivityIndicator color="#fefefe" size={24} />
       ) : (
-        <Text className="text-white text-lg font-bold">{tituloButton}</Text>
+        <>
+          {IconComponent && (
+            <View className="mx-3">
+              <IconComponent color={colorIcon} />
+            </View>
+          )}
+          <Text className="text-white text-lg font-bold">{tituloButton}</Text>
+        </>
       )}
     </TouchableOpacity>
   );
