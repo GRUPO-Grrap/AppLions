@@ -8,8 +8,10 @@ interface IButton {
   isLoading?: boolean;
   icon?: Icon;
   colorIcon?: string;
-  bgColorButton: string;
+  bgColorButton?: string;
   widthButton: String | number;
+  borderColor?: String | number;
+  textColor: String;
 }
 
 const Button = ({
@@ -21,21 +23,33 @@ const Button = ({
   isLoading = false,
   bgColorButton,
   widthButton,
+  borderColor,
+  textColor,
 }: IButton) => {
   return (
     <TouchableOpacity
       //@ts-ignore
       style={
         disable
-          ? { backgroundColor: "rgb(156 163 175)", width: widthButton }
-          : { backgroundColor: bgColorButton, width: widthButton }
+          ? {
+              backgroundColor: "rgb(156 163 175)",
+              width: widthButton,
+              borderColor: borderColor,
+              color: textColor,
+            }
+          : {
+              backgroundColor: bgColorButton,
+              width: widthButton,
+              borderColor: borderColor,
+              color: textColor,
+            }
       }
       disabled={isLoading || disable}
       onPress={onPress}
       className={
         disable
-          ? "bg-gray-400  p-4 rounded-xl flex-row items-center justify-center"
-          : `p-4 rounded-xl  flex-row items-center justify-center`
+          ? "bg-gray-400  border-2 p-3 rounded-xl flex-row items-center justify-center"
+          : `p-3 rounded-xl border-2 flex-row items-center justify-center`
       }
     >
       {isLoading ? (
@@ -47,7 +61,22 @@ const Button = ({
               <IconComponent color={colorIcon} />
             </View>
           )}
-          <Text className="text-white text-lg font-bold">{tituloButton}</Text>
+          <Text
+            //@ts-ignore
+
+            style={
+              disable
+                ? {
+                    color: textColor,
+                  }
+                : {
+                    color: textColor,
+                  }
+            }
+            className="text-lg font-bold"
+          >
+            {tituloButton}
+          </Text>
         </>
       )}
     </TouchableOpacity>

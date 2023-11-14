@@ -31,7 +31,7 @@ const Input = ({
   };
 
   return (
-    <View className="w-full px-3 mt-5">
+    <View className="w-full  mt-5">
       <View
         className={
           isFocused

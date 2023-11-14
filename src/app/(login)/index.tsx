@@ -1,11 +1,13 @@
 import { router } from "expo-router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import React from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Input from "../../components/Input";
-import { Mail } from "lucide-react-native";
+import { Lock, Mail } from "lucide-react-native";
 import Button from "../../components/Button";
+import ToastNotification from "../../components/Toast";
+import Checkbox from "../../components/checkBox";
 
 const LoginScreen = () => {
   //Condição de login
@@ -19,25 +21,39 @@ const LoginScreen = () => {
   const goToRegister = () => {
     router.replace("/(login)/register");
   };
+  const [loading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [showToast, setShowToast] = useState(false);
+
+  //function handleClick
+  function handleClick() {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    // input.current.focus();
+  }
   function onSubmit() {
     //fazer o tramite de submit aqui
-    router.replace("/(tabs)/home");
+    handleClick();
+    if (email.trim() === "") {
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 1500);
+    } else {
+      // Lógica de autenticação ou envio aqui
+      router.replace("/(tabs)/home");
+    }
   }
 
   //Necessário para chamar métodos no componente
   const input = useRef(null);
-  //function handleClick
-  function handleClick() {
-    // input.current.focus();
-  }
 
   //Construção da tela login
   return (
-    <SafeAreaView className="flex-1 flex-col bg-white">
-      <ScrollView
-        className="flex-col pb-0"
-        // contentContainerStyle={styles.scrollContainer}
-      >
+    <View className="flex-1 flex-col bg-white justify-center ">
+      <ScrollView className="flex-col pb-0">
         <View className="flex-1">
           <Image
             className="justify-start w-full"
@@ -45,38 +61,64 @@ const LoginScreen = () => {
           />
         </View>
 
-        <View className="flex-1 bg-white -mt-52 rounded-t-3xl">
-          <Text className="text-3xl font-bold mb-10 px-3">Login</Text>
-          <Input
-            icon={Mail}
-            placeholder="Seu e-mail"
-            autoCapitalizeOn="none"
-            autoCorrectOn={false}
-            keyboardType="email-address"
-          />
-          <Input
-            icon={Mail}
-            placeholder="Seu e-mail"
-            autoCapitalizeOn="none"
-            autoCorrectOn={false}
-            keyboardType="email-address"
-          />
-          <Button
-            widthButton="100%"
-            tituloButton="Fazer Login"
-            bgColorButton="#1C509C"
-            onPress={() => onSubmit()}
-          />
-
-          <View className="items-center">
-            <Text>Quer fazer parte da nossa comunidade?</Text>
-            <Text onPress={goToRegister} className="text-blue-600 underline">
-              CADASTRE-SE
-            </Text>
+        <View className="flex-1 bg-white px-3 -mt-40 rounded-t-3xl">
+          {showToast && (
+            <ToastNotification
+              toastMode="warning"
+              titulo="Atenção"
+              legenda="O campo de e-mail não pode estar vazio."
+            />
+          )}
+          <Text className="text-4xl text-blue-900 font-bold mt-24 mb-10 px-3">
+            Login
+          </Text>
+          <View className="mb-6">
+            <Input
+              //@ts-ignore
+              value={email}
+              onChangeText={setEmail}
+              icon={Mail}
+              placeholder="Seu e-mail"
+              autoCapitalizeOn="none"
+              autoCorrectOn={false}
+              keyboardType="email-address"
+            />
+            <Input
+              icon={Lock}
+              secureTextEntry
+              placeholder="Sua senha"
+              autoCapitalizeOn="none"
+              autoCorrectOn={false}
+              keyboardType="default"
+            />
+          </View>
+          <View className="m-3 mb-6">
+            <Checkbox legenda="Mantenha-me logado" />
+          </View>
+          <View>
+            <Button
+              textColor="#fefefe"
+              isLoading={loading}
+              widthButton="100%"
+              tituloButton="Fazer Login"
+              bgColorButton="rgb(30 58 138)"
+              onPress={() => onSubmit()}
+              borderColor="rgb(30 58 138)"
+            />
+          </View>
+          <View className="mt-2">
+            <Button
+              isLoading={loading}
+              widthButton="100%"
+              tituloButton="Criar uma conta"
+              onPress={goToRegister}
+              borderColor="rgb(30 58 138)"
+              textColor="rgb(30 58 138)"
+            />
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 export default LoginScreen;
