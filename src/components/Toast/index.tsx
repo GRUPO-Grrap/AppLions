@@ -1,5 +1,4 @@
 import { AlertCircle, CheckCircle2 } from "lucide-react-native";
-import { useState } from "react";
 import { Text, View } from "react-native";
 
 interface ToastMode {
