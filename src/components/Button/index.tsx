@@ -49,7 +49,7 @@ const Button = ({
       className={
         disable
           ? "bg-gray-400  border-2 p-3 rounded-xl flex-row items-center justify-center"
-          : `p-3 rounded-xl border-2 flex-row items-center justify-center`
+          : ` rounded-xl border-2 p-3 flex-row items-center justify-center`
       }
     >
       {isLoading ? (
@@ -57,7 +57,7 @@ const Button = ({
       ) : (
         <>
           {IconComponent && (
-            <View className="mx-3">
+            <View className="mx-1">
               <IconComponent color={colorIcon} />
             </View>
           )}

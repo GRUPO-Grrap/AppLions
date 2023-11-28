@@ -5,6 +5,7 @@ export enum ScreenValues {
   LOGIN = "login",
   REGISTER = "register",
   USERS = "users",
+  REGISTERSCHOOL = "registerSchool",
 }
 export const ScreenView = {
   [ScreenValues.HOME]: { id: ScreenValues.HOME, name: "Home" },
@@ -13,4 +14,8 @@ export const ScreenView = {
   [ScreenValues.HISTORY]: { id: ScreenValues.HISTORY, name: "History" },
   [ScreenValues.REGISTER]: { id: ScreenValues.REGISTER, name: "Registro" },
   [ScreenValues.USERS]: { id: ScreenValues.USERS, name: "User" },
+  [ScreenValues.REGISTERSCHOOL]: {
+    id: ScreenValues.REGISTERSCHOOL,
+    name: "CadsEscola",
+  },
 };

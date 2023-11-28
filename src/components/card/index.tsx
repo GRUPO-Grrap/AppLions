@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 export default function Card() {
   return (
@@ -12,7 +12,12 @@ export default function Card() {
           </Text>
         </View>
         <View>
-          <Text>foto</Text>
+          <View className="flex-row items-center">
+            <Image
+              source={require("../../assets/meninoComOculos.png")}
+              className="w-16 h-16 rounded-full mr-3"
+            />
+          </View>
         </View>
       </View>
     </View>

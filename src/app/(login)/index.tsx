@@ -1,11 +1,9 @@
 import { router } from "expo-router";
-import { useRef, useState } from "react";
-import React from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Input from "../../components/Input";
 import { Lock, Mail } from "lucide-react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Image, ScrollView, Text, TextInput, View } from "react-native";
 import Button from "../../components/Button";
+import Input from "../../components/Input";
 import ToastNotification from "../../components/Toast";
 import Checkbox from "../../components/checkBox";
 
@@ -23,7 +21,18 @@ const LoginScreen = () => {
   };
   const [loading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
   const [showToast, setShowToast] = useState(false);
+
+  const emailInput = useRef<TextInput>(null);
+
+  useEffect(() => {
+    if (emailInput.current) {
+      //@ts-ignore
+      emailInput.current.resetError();
+    }
+  }, [email]);
 
   //function handleClick
   function handleClick() {
@@ -36,8 +45,14 @@ const LoginScreen = () => {
   function onSubmit() {
     //fazer o tramite de submit aqui
     handleClick();
+
     if (email.trim() === "") {
       setShowToast(true);
+
+      if (emailInput.current) {
+        //@ts-ignore
+        emailInput.current.focusOnError();
+      }
       setTimeout(() => {
         setShowToast(false);
       }, 1500);
@@ -72,8 +87,10 @@ const LoginScreen = () => {
           <Text className="text-4xl text-blue-900 font-bold mt-24 mb-10 px-3">
             Login
           </Text>
+
           <View className="mb-6">
             <Input
+              ref={emailInput}
               //@ts-ignore
               value={email}
               onChangeText={setEmail}
@@ -84,6 +101,10 @@ const LoginScreen = () => {
               keyboardType="email-address"
             />
             <Input
+              ref={emailInput}
+              //@ts-ignore
+              value={senha}
+              onChangeText={setSenha}
               icon={Lock}
               secureTextEntry
               placeholder="Sua senha"
@@ -108,7 +129,6 @@ const LoginScreen = () => {
           </View>
           <View className="mt-2">
             <Button
-              isLoading={loading}
               widthButton="100%"
               tituloButton="Criar uma conta"
               onPress={goToRegister}

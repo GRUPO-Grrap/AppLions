@@ -3,7 +3,8 @@ import { ScreenValues, ScreenView } from "../../@types/files";
 
 export default function layApp() {
   return (
-    <Stack screenOptions={{ headerShown: false }} />
+    <Stack  />
+
     // <Tabs screenOptions={{ headerShown: false }} detachInactiveScreens>
     //   <Tabs.Screen
     //     name={ScreenView[ScreenValues.LOGIN].id}
